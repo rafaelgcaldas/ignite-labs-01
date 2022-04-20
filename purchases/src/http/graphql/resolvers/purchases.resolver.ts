@@ -26,4 +26,8 @@ export class PurchasesResolver {
     return this.productsService.getProductById(purchase.productId)
   }
 
+  @Mutation(() => Purchase)
+  createPurchase() {}
+
+
 }
