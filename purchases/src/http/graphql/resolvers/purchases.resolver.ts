@@ -1,9 +1,11 @@
 import { UseGuards } from "@nestjs/common";
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
+import { CurrentUser } from "src/http/auth/current-user";
 
 import { ProductsService } from "src/services/products.service";
 import { PurchasesService } from "../../../services/purchases.service";
 import { AuthorizationGuard } from "../../auth/authorization.guard";
+import { CreatePurchaseInput } from "../inputs/create-purchase.input";
 import { Product } from "../models/product";
 import { Purchase } from "../models/purchase";
 
@@ -27,7 +29,13 @@ export class PurchasesResolver {
   }
 
   @Mutation(() => Purchase)
-  createPurchase() {}
+  createPurchase(@Args('data') data: CreatePurchaseInput, @CurrentUser() user) {
+    return null;
+    // return this.purchasesService.createPurchase({
+    //   productId: data.productId,
+
+    // })
+  }
 
 
 }
