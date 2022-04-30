@@ -4,7 +4,7 @@ import { Query, Resolver } from "@nestjs/graphql";
 import { PrismaService } from "../../../database/prisma/prisma.service";
 import { AuthorizationGuard } from "../../auth/authorization.guard";
 
-import { Product } from "../models/product";
+import { Product } from "../models/student";
 
 @Resolver()
 export class ProductsResolver {
