@@ -1,5 +1,5 @@
-import { UseGuards } from "@nestjs/common";
 import { Query, Resolver } from "@nestjs/graphql";
+import { UseGuards } from "@nestjs/common";
 
 import { StudentsService } from "../../../services/students.service";
 import { AuthorizationGuard } from "../../auth/authorization.guard";
