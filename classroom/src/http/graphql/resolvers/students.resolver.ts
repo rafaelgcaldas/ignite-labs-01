@@ -10,7 +10,7 @@ export class StudentsResolver {
   constructor(private studentsService: StudentsService) {}
 
   @Query(() => [Student])
-  @UseGuards(AuthorizationGuard)
+  // @UseGuards(AuthorizationGuard)
   students() {
     return this.studentsService.listAllStudents();
   }
