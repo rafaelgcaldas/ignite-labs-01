@@ -16,4 +16,4 @@ export default function Home() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = withPageAuthRequired();
+export const getServerSideProps: GetServerSideProps = (withPageAuthRequired());
