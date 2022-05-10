@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { KafkaService } from "src/messaging/kafka.service";
 
 import { PrismaService } from "../database/prisma/prisma.service";
 
@@ -12,7 +13,8 @@ interface CreatePurchaseParams {
 @Injectable()
 export class PurchasesService {
   constructor (
-    private prisma: PrismaService
+    private prisma: PrismaService,
+    private kafkaService: KafkaService
   ) {}
 
   listAllPurchases() {
@@ -45,12 +47,14 @@ export class PurchasesService {
       throw new Error('product not found.');
     }
 
-    return await this.prisma.purchase.create({
+    const purchase = await this.prisma.purchase.create({
       data: {
         customerId,
         productId
       }
     });
+
+    return purchase;
   }
 
 }
