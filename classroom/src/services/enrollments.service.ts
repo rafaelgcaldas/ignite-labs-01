@@ -8,6 +8,11 @@ interface GetByCourseAndStudentIdParams {
   studentId: string;
 }
 
+interface CreateEnrollmentParams {
+  courseId: string;
+  studentId: string;
+}
+
 @Injectable()
 export class EnrollmentsService {
   constructor(private prisma: PrismaService) {}
@@ -41,6 +46,15 @@ export class EnrollmentsService {
       },
       orderBy: {
         createdAt: 'desc'
+      }
+    })
+  }
+
+  createEnrollment({ courseId, studentId}: CreateEnrollmentParams) {
+    return this.prisma.enrollment.create({
+      data: {
+        courseId,
+        studentId,
       }
     })
   }
