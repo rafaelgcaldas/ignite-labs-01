@@ -9,7 +9,7 @@ type Course {
 }
 
 type User {
-  id: ID!
+  authUserId: ID!
   enrollments: [Enrollment!]!
 }
 
@@ -30,7 +30,6 @@ type Query {
   courses: [Course!]!
   course(id: String!): Course!
   enrollments: [Enrollment!]!
-  me: User!
   students: [User!]!
 }
 
