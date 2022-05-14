@@ -8,14 +8,14 @@ type Course {
   slug: String!
 }
 
-type Student {
+type User {
   id: ID!
   enrollments: [Enrollment!]!
 }
 
 type Enrollment {
   id: ID!
-  student: Student!
+  student: User!
   course: Course!
   canceledAt: DateTime
   createdAt: DateTime!
@@ -30,8 +30,8 @@ type Query {
   courses: [Course!]!
   course(id: String!): Course!
   enrollments: [Enrollment!]!
-  me: Student!
-  students: [Student!]!
+  me: User!
+  students: [User!]!
 }
 
 type Mutation {
