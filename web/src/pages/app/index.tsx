@@ -6,12 +6,7 @@ import { withApollo } from "../../lib/withApollo";
 
 
 const PRODUCTS_QUERY = gql`
-  query GetProducts {
-    products {
-      id
-      title
-    }
-  }
+  
 `
 
 function Home() {
