@@ -2,6 +2,7 @@ import { getAccessToken, useUser, withPageAuthRequired } from "@auth0/nextjs-aut
 import { GetServerSideProps } from "next";
 
 import { gql, useQuery } from "@apollo/client";
+import { withApollo } from "../../lib/withApollo";
 
 
 const PRODUCTS_QUERY = gql`
@@ -13,7 +14,7 @@ const PRODUCTS_QUERY = gql`
   }
 `
 
-export default function Home() {
+function Home() {
   const { user } = useUser();
   const { data, loading, error } = useQuery(PRODUCTS_QUERY);
   
@@ -42,3 +43,5 @@ export const getServerSideProps: GetServerSideProps = withPageAuthRequired({
     }
   }
 });
+
+export default withApollo(Home);
