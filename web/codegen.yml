@@ -2,11 +2,11 @@ overwrite: true
 
 schema: 'http://localhost:3333/graphql'
 
+documents: './src/graphql/**/*.graphql'
 
 
 generates:
   src/graphql/generated/graphql.tsx:
-    documents: './src/graphql/**/*.graphql'
     plugins:
       - 'typescript'
       - 'typescript-operations'
@@ -18,7 +18,6 @@ generates:
       withComponent: false
       exportFragmentSpreadSubTypes: true
       documentMode: graphQLTag
-
   src/graphql/generated/page.tsx:
     config:
       documentMode: external
