@@ -3,12 +3,13 @@ import { GetServerSideProps } from "next";
 
 import { withApollo } from "../../lib/withApollo";
 import { useGetProductsQuery } from "../../graphql/generated/graphql";
+import { getServerPageGetProducts, ssrGetProducts } from "../../graphql/generated/page";
 
 
 
-function Home() {
+function Home({ data }) {
   const { user } = useUser();
-  const { data, loading, error } = useGetProductsQuery();
+  // const { data, loading, error } = useGetProductsQuery();
   
   return (
     <div>
@@ -27,13 +28,11 @@ function Home() {
 }
 
 export const getServerSideProps: GetServerSideProps = withPageAuthRequired({
-  getServerSideProps: async ({ req, res }) => {
-    console.log(getAccessToken(req, res));
-
-    return {
-      props: {}
-    }
+  getServerSideProps: async (ctx) => {
+    return getServerPageGetProducts({}, ctx);
   }
 });
 
-export default withApollo(Home);
+export default withApollo(
+  ssrGetProducts.withPage()(Home)
+);
