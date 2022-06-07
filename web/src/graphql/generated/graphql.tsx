@@ -15,7 +15,17 @@ export type Scalars = {
   Float: number;
   /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
-  _Any: any;
+};
+
+export type Course = {
+  __typename?: 'Course';
+  id: Scalars['ID'];
+  slug: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type CreateCourseInput = {
+  title: Scalars['String'];
 };
 
 export type CreateProductInput = {
@@ -26,10 +36,25 @@ export type CreatePurchaseInput = {
   productId: Scalars['String'];
 };
 
+export type Enrollment = {
+  __typename?: 'Enrollment';
+  canceledAt?: Maybe<Scalars['DateTime']>;
+  course: Course;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  student: User;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  createCourse: Course;
   createProduct: Product;
   createPurchase: Purchase;
+};
+
+
+export type MutationCreateCourseArgs = {
+  data: CreateCourseInput;
 };
 
 
@@ -66,36 +91,31 @@ export enum PurchaseStatus {
 
 export type Query = {
   __typename?: 'Query';
-  _entities: Array<Maybe<_Entity>>;
-  _service: _Service;
+  course: Course;
+  courses: Array<Course>;
+  enrollments: Array<Enrollment>;
   me: User;
   products: Array<Product>;
   purchases: Array<Purchase>;
+  students: Array<User>;
 };
 
 
-export type Query_EntitiesArgs = {
-  representations: Array<Scalars['_Any']>;
+export type QueryCourseArgs = {
+  id: Scalars['String'];
 };
 
 export type User = {
   __typename?: 'User';
   authUserId: Scalars['ID'];
+  enrollments: Array<Enrollment>;
   purchases: Array<Purchase>;
-};
-
-export type _Entity = User;
-
-export type _Service = {
-  __typename?: '_Service';
-  /** The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied */
-  sdl?: Maybe<Scalars['String']>;
 };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', authUserId: string } };
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', enrollments: Array<{ __typename?: 'Enrollment', id: string, createdAt: any, course: { __typename?: 'Course', title: string, slug: string } }> } };
 
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -106,7 +126,14 @@ export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typen
 export const MeDocument = gql`
     query Me {
   me {
-    authUserId
+    enrollments {
+      id
+      createdAt
+      course {
+        title
+        slug
+      }
+    }
   }
 }
     `;
