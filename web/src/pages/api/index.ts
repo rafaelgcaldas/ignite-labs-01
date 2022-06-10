@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { accessToken } = await getAccessToken(req, res);
 
   return httpProxyMiddleware(req, res, {
-    target: 'http://localhost:3333/graphql',
+    target: 'http://localhost:3332/graphql',
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
